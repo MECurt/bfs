@@ -27,7 +27,7 @@ impl<T> Queue<T> {
 type Vertex = Vec<u32>;
 type Graph = Vec<Vertex>;
 
-fn bfs(graph: Graph, start_node: u32, end_node: u32) -> Option<Vec<Option<u32>>> {
+pub fn bfs(graph: Graph, start_node: u32, end_node: u32) -> Option<Vec<Option<u32>>> {
     let mut queue = Queue::new();
     queue.enqueue(start_node);
 
@@ -69,9 +69,36 @@ fn bfs(graph: Graph, start_node: u32, end_node: u32) -> Option<Vec<Option<u32>>>
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
+    fn queue_enqueue() {
+        let mut q = Queue::new();
+        q.enqueue(0);
+        assert!(!q.is_empty());
+    }
+
+    #[test]
+    fn queue_dequeue() {
+        let mut q = Queue::new();
+        q.enqueue(15);
+        assert_eq!(q.dequeue(), 15);
+    }
+
+    #[test]
+    fn queue_multi_dequeue() {
+        let mut q = Queue::new();
+        q.enqueue(1);
+        q.enqueue(2);
+        q.enqueue(3);
+        assert_eq!(q.dequeue(), 1);
+        assert_eq!(q.dequeue(), 2);
+        assert_eq!(q.dequeue(), 3);
+    }
+
+    #[test]
+    #[should_panic(expected = "Cannot dequeue from empty queue")]
+    fn queue_dequeue_empty() {
+        let mut q:Queue<i32> = Queue::new();
+        q.dequeue();
     }
 }
