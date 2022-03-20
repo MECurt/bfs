@@ -24,8 +24,8 @@ impl<T> Queue<T> {
     }
 }
 
-type Vertex = Vec<u32>;
-type Graph = Vec<Vertex>;
+pub type Vertex = Vec<u32>;
+pub type Graph = Vec<Vertex>;
 
 pub fn bfs(graph: Graph, start_node: u32, end_node: u32) -> Option<Vec<Option<u32>>> {
     let mut queue = Queue::new();
